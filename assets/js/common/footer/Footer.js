@@ -86,7 +86,7 @@ export default class Footer extends Component{
                                 <div className="row">
                                     <div className="col-sm-12 col-md-10 offset-md-1">
                                         <form ref={(el) => this.myFormRef = el} className="form text-grey mb-3 needs-validation" id="form" onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                                            <div className="form-group">
+                                            <div className="form-group" id="contact">
                                                 <label htmlFor="name">Nom *</label>
                                                 <input name="name" id="name" className="form-control" type="text" required={true}/>
                                             </div>

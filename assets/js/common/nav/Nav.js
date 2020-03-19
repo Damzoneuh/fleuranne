@@ -26,7 +26,7 @@ export default class Nav extends Component{
                             <a className="nav-link h4 text-grey" href="#">Tarifs</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link h4 text-grey" href="#form">Contact</a>
+                            <a className="nav-link h4 text-grey" href="#contact">Contact</a>
                         </li>
                     </ul>
                 </div>
