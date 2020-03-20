@@ -47,3 +47,24 @@ $pink: rgb(251,222,193);
   background-color: $pink;
   color: $grey;
 }
+
+@media screen and (max-width: 550px){
+  .layout-banner{
+    height: 30vh !important;
+  }
+}
+@media screen and (min-width: 551px) and (max-width: 850px){
+  .layout-banner{
+    min-height: 60vh !important;
+  }
+}
+@media screen and (min-width: 851px){
+  .layout-banner{
+    min-height: 75vh !important;
+  }
+}
+
+.banner-text{
+  position: relative;
+  margin-top: 1rem !important;
+}
