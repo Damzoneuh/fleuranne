@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Admin{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="p-sm-1 p-5">
+                    <div class="bg-grey-inherit rounded p-5 mt-5 mb-5 shadow">
+                        <div class="row">
+                            <div class="col text-center">
+                                <a href="#" class="btn btn-group btn-grey">Actualités</a>
+                            </div>
+                            <div class="col text-center">
+                                <a href="#" class="btn btn-group btn-grey">Tarifs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}{{ parent() }}{% endblock %}
