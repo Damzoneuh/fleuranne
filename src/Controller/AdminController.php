@@ -163,4 +163,8 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La publication à bien été supprimée');
         return $this->redirectToRoute('admin_news');
     }
+
+    public function pricing(){
+        return $this->render('admin/pricing.html.twig');
+    }
 }
