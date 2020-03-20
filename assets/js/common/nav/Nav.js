@@ -20,10 +20,10 @@ export default class Nav extends Component{
                 <div className="collapse navbar-collapse" id="navbarToggler">
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 ">
                         <li className="nav-item ">
-                            <a className="nav-link h4 text-grey" href="#">Accueil</a>
+                            <a className="nav-link h4 text-grey" href="/">Accueil</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link h4 text-grey" href="#">Tarifs</a>
+                            <a className="nav-link h4 text-grey" href="#">Préstations</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link h4 text-grey" href="#contact">Contact</a>

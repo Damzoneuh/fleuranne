@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Admin News Edition{% endblock %}
+{% block javascripts %}{{ parent() }}{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="p-sm-1 p-5">
+                    <div class="bg-grey-inherit p-sm-1 p-5 mt-5 mb-5">
+                        <div class="row">
+                            {% if news.img %}
+                                <div class="col">
+                                    <div class="text-center">
+                                        <img src="{{ path('img', {id: news.img.id}) }}" class="img-thumbnail">
+                                    </div>
+                                </div>
+                                {% else %}
+                                    <div class="col">
+                                        <div class="text-center">
+                                            <h1 class="text-pink">Pas d'image</h1>
+                                        </div>
+                                    </div>
+                            {% endif %}
+                            <div class="col text-pink">
+                                <div class="text-center">
+                                    <h1 class="text-pink h3 mt-3 mb-5">Editer une actualité</h1>
+                                </div>
+                                {{ form_start(form) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
