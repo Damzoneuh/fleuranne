@@ -56,7 +56,8 @@ export default class Mark extends Component{
                     isLoaded: true,
                     message: 'Une erreur est survenue lors de la recheche des soins',
                     type: 'danger'
-                })
+                });
+                this.hasToReload(false);
             })
     }
 
@@ -119,8 +120,8 @@ export default class Mark extends Component{
                 this.setState({
                     isLoaded: true
                 });
-                this.hasToReload(true);
                 this.handleCreate();
+                this.hasToReload(true);
             })
     }
 
@@ -132,7 +133,14 @@ export default class Mark extends Component{
             .then(res => {
                 this.setState({
                     message: res.data.success,
-                    type: 'success'
+                    type: 'success',
+                    isLoaded: true
+                });
+                this.hasToReload(true);
+            })
+            .catch(e => {
+                this.setState({
+                    isLoaded: true
                 });
                 this.hasToReload(true);
             })

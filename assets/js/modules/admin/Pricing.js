@@ -12,6 +12,14 @@ export default class Pricing extends Component{
         this.hasToReload = this.hasToReload.bind(this);
     }
 
+    componentWillUpdate(nextProps, nextState){
+        if (nextState !== this.state.hasToReload){
+            this.setState({
+                hasToReload: !this.state.hasToReload
+            })
+        }
+    }
+
     hasToReload(bool){
         this.setState({
             hasToReload: bool
