@@ -23,11 +23,11 @@ export default class Pricing extends Component{
         const {hasToReload} = this.state;
         return (
             <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-6 col-12">
+                <div className="row align-items-stretch">
+                    <div className="col-md-6 col-12 mt-2 mb-2">
                         <Mark hasToReload={this.hasToReload} reload={hasToReload}/>
                     </div>
-                    <div className="col-md-6 col-12">
+                    <div className="col-md-6 col-12 mt-2 mb-2">
                         <CareType hasToReload={this.hasToReload} reload={hasToReload}/>
                     </div>
                 </div>

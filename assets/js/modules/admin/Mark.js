@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Loader from "../../common/loader/Loader";
 import Logger from "../../common/logger/Logger";
-const abortController = new AbortController();
 
 export default class Mark extends Component{
 
@@ -29,7 +28,7 @@ export default class Mark extends Component{
         this.getAllCares();
     }
 
-    componentWillReceiveProps({reload}){
+    componentDidUpdate({reload}){
         if(reload){
             this.getAllCares();
         }
@@ -152,9 +151,9 @@ export default class Mark extends Component{
         }
        else {
             return (
-                <div className="bg-pink-inherit">
+                <div className="bg-pink-inherit h-100 rounded shadow">
                     {message && type ? <Logger message={message} type={type}/> : ''}
-                    <div className="p-sm-2 p-5  mt-2 mb-2">
+                    <div className="p-sm-2 p-5">
                         {!create ?
                             <div className="text-center">
                                 <button className="btn btn-group btn-grey" onClick={this.handleCreate}>Ajouter une marque</button>
@@ -186,7 +185,7 @@ export default class Mark extends Component{
                                     return (
                                         <tr>
                                             <td>{care.name}</td>
-                                            <td className="text-right"><i className="fas fa-trash text-danger" onClick={() => this.handleDeleteMark(care.id)}></i></td>
+                                            <td className="text-right"><i className="fas fa-trash text-danger link" onClick={() => this.handleDeleteMark(care.id)}></i></td>
                                         </tr>
                                     )
                                 }) : ''}
