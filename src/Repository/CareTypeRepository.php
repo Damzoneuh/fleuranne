@@ -20,7 +20,7 @@ class CareTypeRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return CareType[] Returns an array of CareType objects
+    //  * @return Mark[] Returns an array of Mark objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CareTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CareType
+    public function findOneBySomeField($value): ?Mark
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
