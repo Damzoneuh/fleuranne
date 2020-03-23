@@ -151,4 +151,48 @@ class PricingController extends AbstractController
 
         return $this->json(['success' => 'Le service à bien été ajouté']);
     }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     * @Route("/admin/api/delete/service/{id}", name="admin_api_delete_service", methods={"DELETE"})
+     */
+    public function deleteService($id){
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(Services::class)->find($id);
+        $em->remove($service);
+        $em->flush();
+
+        return $this->json(['success' => 'La préstation à bien été supprimée']);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("/admin/api/setwoman/service", name="admin_api_setwoman_service", methods={"PUT"})
+     */
+    public function setNewWomanPrice(Request $request){
+        $data = $this->serializer->decode($request->getContent(), 'json');
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(Services::class)->find($data['id']);
+        $service->setPriceWoman($data['price']);
+        $em->flush();
+
+        return $this->json(['success' => 'La préstation à bien été mise à jour']);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("/admin/api/setman/service", name="admin_api_setman_service", methods={"PUT"})
+     */
+    public function setNewManPrice(Request $request){
+        $data = $this->serializer->decode($request->getContent(), 'json');
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(Services::class)->find($data['id']);
+        $service->setPriceMan($data['price']);
+        $em->flush();
+
+        return $this->json(['success' => 'La préstation à bien été mise à jour']);
+    }
 }

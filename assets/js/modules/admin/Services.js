@@ -16,10 +16,20 @@ export default class Services extends Component{
             mark: null,
             care: null,
             message: null,
-            type: null
+            type: null,
+            newWomanPrice: null,
+            newManPrice: null,
+            selectedNewPrice: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.cancelCourse = this.cancelCourse.bind(this);
+        this.hasToReload = this.hasToReload.bind(this);
+        this.handleDeleteService = this.handleDeleteService.bind(this);
+        this.handleNewPriceSubmit = this.handleNewPriceSubmit.bind(this);
+        this.handleNewWomanPrice = this.handleNewWomanPrice.bind(this);
+        this.handleNewManPrice = this.handleNewManPrice.bind(this);
     }
 
     handleChange(e){
@@ -67,14 +77,113 @@ export default class Services extends Component{
                 'womanPrice': this.state.womanPrice,
                 'manPrice': this.state.manPrice
             };
-            axios.post('/admin/api/create/') //TODO finir ici le back est prêt 
+            axios.post('/admin/api/create/service', payLoad)
+                .then(res => {
+                    this.cancelCourse();
+                    this.setState({
+                        name: null,
+                        description: null,
+                        time: null,
+                        womanPrice: null,
+                        manPrice: null,
+                        mark: null,
+                        care: null,
+                        create: false,
+                        message: res.data.success,
+                        type: 'success'
+                    });
+                    this.hasToReload();
+                })
+                .catch(e => {
+                    this.setState({
+                        message: 'Vous devez choisir une marque et une catégorie de soin',
+                        type: 'danger'
+                    })
+                })
         }
+    }
+
+    handleDeleteService(id){
+        axios.delete('/admin/api/delete/service/' + id)
+            .then(res => {
+                this.setState({
+                    message: res.data.success,
+                    type: 'success'
+                });
+                this.hasToReload();
+            })
+            .catch(e => {
+                this.setState({
+                    message: 'Une erreur est survenue lors de la suppression',
+                    type: 'danger'
+                })
+            })
+    }
+
+    hasToReload(){
+        this.props.hasToReload();
     }
 
     cancelCourse(){
         this.servicesTypeForm.reset();
     }
 
+    handleNewWomanPrice(e, id){
+        this.setState({
+            newWomanPrice: e.target.value,
+            selectedNewPrice: id
+        })
+    }
+
+    handleNewManPrice(e, id){
+        this.setState({
+            newManPrice: e.target.value,
+            selectedNewPrice: id
+        })
+    }
+
+    handleNewPriceSubmit(e){
+        e.preventDefault();
+        if (e.target.name === 'newWomanPrice'){
+            axios.put('/admin/api/setwoman/service', {id: this.state.selectedNewPrice, price: this.state.newWomanPrice})
+                .then(res => {
+                    this.setState({
+                        selectedNewPrice: null,
+                        newWomanPrice: null,
+                        message: res.data.success,
+                        type: 'success'
+                    });
+                    this.hasToReload();
+                })
+                .catch(e => {
+                    this.setState({
+                        selectedNewPrice: null,
+                        newWomanPrice: null,
+                        message: 'Une erreur est survenue lors de la mise à jour',
+                        type: 'danger'
+                    })
+                })
+        }
+        else{
+            axios.put('/admin/api/setman/service', {id: this.state.selectedNewPrice, price: this.state.newManPrice})
+                .then(res => {
+                    this.setState({
+                        newManPrice: null,
+                        selectedNewPrice: null,
+                        message: res.data.success,
+                        type: 'success'
+                    })
+                })
+                .catch(e => {
+                    this.setState({
+                        newManPrice: null,
+                        selectedNewPrice: null,
+                        message: 'Une erreur est survenue lors de la mise à jour',
+                        type: 'danger'
+                    })
+                })
+        }
+    }
 
 
     render() {
@@ -165,6 +274,18 @@ export default class Services extends Component{
                     </div>
                     <div className="p-sm-2 p-5 mt-2 mb-2">
                         <table className="table table-responsive-sm table-striped bg-pink-inherit">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Marque</th>
+                                    <th scope="col">Type de soin</th>
+                                    <th scope="col">Temps</th>
+                                    <th scope="col">Prix femme</th>
+                                    <th scope="col">Prix homme</th>
+                                    <th scope="col">Supprimer</th>
+                                </tr>
+                            </thead>
                             <tbody>
                             {services && services.length > 0 ? services.map(s => {
                                 return (
@@ -174,8 +295,17 @@ export default class Services extends Component{
                                         <td>{s.mark.name}</td>
                                         <td>{s.care.name}</td>
                                         <td>{s.time}</td>
-                                        <td>{s.priceWoman}</td>
-                                        <td>{s.priceMan}</td>
+                                        <td>
+                                            <form onChange={(el) => this.handleNewWomanPrice(el, s.id)} onSubmit={this.handleNewPriceSubmit} name="newWomanPrice">
+                                                <input className="form-control" defaultValue={s.priceWoman} />
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form onChange={(el) => this.handleNewManPrice(el, s.id)} onSubmit={this.handleNewPriceSubmit} name="newManPrice">
+                                                <input className="form-control" defaultValue={s.priceMan} />
+                                            </form>
+                                        </td>
+                                        <td className="text-center"><i className="fas fa-trash text-danger link" onClick={() => this.handleDeleteService(s.id)}></i></td>
                                     </tr>
                                 )
                             }) : ''}

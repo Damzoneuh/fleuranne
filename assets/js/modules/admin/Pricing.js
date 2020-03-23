@@ -86,7 +86,7 @@ export default class Pricing extends Component{
                         <CareType hasToReload={this.hasToReload} isLoaded={caresLoaded} careTypes={cares} />
                     </div>
                     <div className="col-12 mb-2">
-                        <Services services={services} isLoaded={servicesLoaded} marks={marks} cares={cares} hasToReaload={this.hasToReload}/>
+                        <Services services={services} isLoaded={servicesLoaded} marks={marks} cares={cares} hasToReload={this.hasToReload}/>
                     </div>
                 </div>
             </div>
