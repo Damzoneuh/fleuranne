@@ -193,4 +193,24 @@ class PricingController extends AbstractController
 
         return $this->json(['success' => 'La préstation à bien été mise à jour']);
     }
+
+    /**
+     * @param $id
+     * @Route("/api/pricing/body/{id}", name="api_pricing_body", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getPricingBody($id){
+        $body = [];
+        $previous = null;
+        $services = $this->getDoctrine()->getRepository(Services::class)->findBy(['care' => $id], ['mark' => 'ASC']);
+        foreach ($services as $service){
+            if ($previous != $service->getMark()->getId()){
+                $body[$service->getMark()->getId()]['img'] = $service->getMark()->getImg();
+                $body[$service->getMark()->getId()]['services'] = [];
+                $previous = $service->getMark()->getId();
+            }
+            array_push($body[$service->getMark()->getId()]['services'], $service);
+        }
+        return $this->json($body);
+    }
 }

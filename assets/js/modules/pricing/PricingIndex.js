@@ -11,10 +11,13 @@ export default class PricingIndex extends Component{
             isLoaded: false,
             tabs: null,
             active: null,
-            scroll: 0
+            scroll: 0,
+            marks: null,
+            marksLoaded: false
         };
         this.handleTab = this.handleTab.bind(this);
         this.scrollHandler = this.scrollHandler.bind(this);
+        this.getAllMarks = this.getAllMarks.bind(this);
     }
 
     componentDidMount(){
@@ -24,7 +27,8 @@ export default class PricingIndex extends Component{
                     isLoaded: true,
                     tabs: res.data,
                     active: res.data[0].id
-                })
+                });
+                this.getAllMarks(res.data[0].id)
             });
         window.addEventListener('scroll', this.scrollHandler, true);
     }
@@ -49,12 +53,26 @@ export default class PricingIndex extends Component{
     handleTab(id){
         this.setState({
             active: id
-        })
+        });
+        this.getAllMarks(id)
+    }
+
+    getAllMarks(id){
+        this.setState({
+            marksLoaded: false
+        });
+        axios.get('/api/pricing/body/' + id)
+            .then(res => {
+                this.setState({
+                    marks: res.data,
+                    marksLoaded: true
+                })
+            })
     }
 
 
     render() {
-        const {tabs, isLoaded, active, scroll} = this.state;
+        const {tabs, isLoaded, active, scroll, marks, marksLoaded} = this.state;
         if (!isLoaded){
             return (
                 <div className="p-sm-2 p-5 mt-2 mb-2">
@@ -84,7 +102,7 @@ export default class PricingIndex extends Component{
                             </ul>
                         </div>
                     </nav>
-                    <PricingBody id={active}/>
+                    <PricingBody marks={marks} isLoaded={marksLoaded} />
                 </div>
             );
         }
