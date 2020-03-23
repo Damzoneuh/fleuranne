@@ -5,6 +5,23 @@ $grey: rgb(131,129,144);
 $grey-dark: rgb(100,110, 100);
 $pink: rgb(251,222,193);
 
+@font-face {
+  src: url("../font/Quicksand_Book.otf");
+  font-family: 'Quick-book';
+}
+
+@font-face {
+  src: url("../font/Quicksand_Bold.otf");
+  font-family: 'Quick-bold';
+}
+
+body{
+  font-family: "Quick-book", sans-serif;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6{
+  font-family: "Quick-bold", sans-serif !important;
+}
 
 a button{
   outline: none;
