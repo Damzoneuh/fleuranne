@@ -9,10 +9,10 @@
         <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
     </head>
     <body>
-    <div id="nav"></div>
     {% if is_granted('ROLE_ADMIN') %}
         <div class="w-100 bg-pink-inherit p-2 text-center"><a href="{{ path('admin') }}" class="text-grey">Admin</a></div>
     {% endif %}
+    <div id="nav"></div>
     {% for message in app.flashes('success') %}
         <div class="container-fluid mt-5">
             <div class="row mt-5">
