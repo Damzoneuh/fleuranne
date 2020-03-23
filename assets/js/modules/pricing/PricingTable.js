@@ -31,7 +31,7 @@ export default class PricingTable extends Component{
                         <table className="table table-striped table-responsive-sm bg-pink-inherit">
                             <thead>
                             <tr>
-                                <th scope="col">Préstation</th>
+                                <th scope="col">Prestation</th>
                                 <th scope="col">Temps</th>
                                 <th scope="col">Homme</th>
                                 <th scope="col">Femme</th>
