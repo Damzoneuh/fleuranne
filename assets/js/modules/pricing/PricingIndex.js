@@ -95,7 +95,7 @@ export default class PricingIndex extends Component{
                                 {tabs && tabs.length > 0 ? tabs.map(tab => {
                                     return (
                                         <li className={'nav-item'} key={tab.id}>
-                                            <a className={tab.id === active ? "nav-link text-pink h4" : 'nav-link h4'} href="#" onClick={() => this.handleTab(tab.id)}>{tab.name}</a>
+                                            <a className={tab.id === active ? "nav-link text-pink h4 link" : 'nav-link h4 link'}  onClick={() => this.handleTab(tab.id)}>{tab.name}</a>
                                         </li>
                                     )
                                 }) : ''}
