@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Mark from "./Mark";
 import CareType from "./CareType";
 import axios from 'axios';
+import Services from "./Services";
 
 export default class Pricing extends Component{
     constructor(props) {
@@ -12,10 +13,13 @@ export default class Pricing extends Component{
             marksLoaded: false,
             cares: null,
             caresLoaded: false,
+            servicesLoaded: false,
+            services: null
         };
         this.hasToReload = this.hasToReload.bind(this);
         this.reloadCare = this.reloadCare.bind(this);
         this.reloadMarks = this.reloadMarks.bind(this);
+        this.reloadServices = this.reloadServices.bind(this);
     }
 
     componentDidMount(){
@@ -48,16 +52,30 @@ export default class Pricing extends Component{
             })
     }
 
+    reloadServices(){
+        this.setState({
+            servicesLoaded: false,
+        });
+        axios.get('/api/services')
+            .then(res => {
+                this.setState({
+                    servicesLoaded: true,
+                    services: res.data
+                })
+            })
+    }
+
     hasToReload(){
         this.reloadCare();
         this.reloadMarks();
+        this.reloadServices();
     }
 
 
 
 
     render() {
-        const {marksLoaded, marks, caresLoaded, cares} = this.state;
+        const {marksLoaded, marks, caresLoaded, cares, servicesLoaded, services} = this.state;
         return (
             <div className="container-fluid">
                 <div className="row align-items-stretch">
@@ -66,6 +84,9 @@ export default class Pricing extends Component{
                     </div>
                     <div className="col-md-6 col-12 mt-2 mb-2">
                         <CareType hasToReload={this.hasToReload} isLoaded={caresLoaded} careTypes={cares} />
+                    </div>
+                    <div className="col-12 mb-2">
+                        <Services services={services} isLoaded={servicesLoaded} marks={marks} cares={cares} hasToReaload={this.hasToReload}/>
                     </div>
                 </div>
             </div>

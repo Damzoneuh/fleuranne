@@ -8,8 +8,6 @@ export default class CareType extends Component{
         super(props);
         this.state = {
             name: null,
-            careTypes : null,
-            isLoaded: false,
             message: null,
             type: null,
             create: false
@@ -112,7 +110,7 @@ export default class CareType extends Component{
                     <div className="p-sm-2 p-5">
                         {!create ?
                             <div className="text-center">
-                                <button className="btn btn-group btn-grey" onClick={this.handleCreate}>Ajouter une section</button>
+                                <button className="btn btn-group btn-pink" onClick={this.handleCreate}>Ajouter une section</button>
                             </div>
                             :
                             <form className="form" ref={(el) => this.careTypeForm = el} onChange={this.handleChange} onSubmit={this.handleSubmit}>

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CareType;
 use App\Entity\Img;
 use App\Entity\Mark;
+use App\Entity\Services;
 use App\Helper\FileHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -114,5 +115,40 @@ class PricingController extends AbstractController
         $em->flush();
 
         return $this->json(['success' => 'La catégorie à bien été supprimée']);
+    }
+
+    /**
+     * @return JsonResponse
+     * @Route("/api/services", name="api_services", methods={"GET"})
+     */
+    public function getAllServices(){
+        return $this->json($this->getDoctrine()->getRepository(Services::class)->findAll());
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("/admin/api/create/service", name="admin_api_create_service", methods={"POST"})
+     */
+    public function createService(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $data = $this->serializer->decode($request->getContent(), 'json');
+
+        $service = new Services();
+        $mark = $em->getRepository(Mark::class)->find($data['mark']);
+        $care = $em->getRepository(CareType::class)->find($data['care']);
+
+        $service->setName($data['name']);
+        $service->setDescription($data['desc']);
+        $service->setCare($care);
+        $service->setMark($mark);
+        $service->setPriceMan($data['manPrice']);
+        $service->setPriceWoman($data['womanPrice']);
+        $service->setTime($data['time']);
+
+        $em->persist($service);
+        $em->flush();
+
+        return $this->json(['success' => 'Le service à bien été ajouté']);
     }
 }

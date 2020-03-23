@@ -8,7 +8,6 @@ export default class Mark extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: false,
             message: null,
             type: null,
             create: false,
