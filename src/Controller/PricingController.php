@@ -35,9 +35,7 @@ class PricingController extends AbstractController
      */
     public function index()
     {
-        return $this->render('pricing/index.html.twig', [
-            'controller_name' => 'PricingController',
-        ]);
+        return $this->render('pricing/index.html.twig');
     }
 
     /**
@@ -49,7 +47,7 @@ class PricingController extends AbstractController
     }
 
     /**
-     * @Route("/api/care/{id}", name="admin_api_get_care", methods={"GET"})
+     * @Route("/api/care/{id}", name="api_get_care", methods={"GET"})
      * @param null $id
      * @return JsonResponse
      */

@@ -316,6 +316,4 @@ export default class Services extends Component{
             );
         }
     }
-
-
 }
