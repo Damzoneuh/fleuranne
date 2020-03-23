@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Préstations{% endblock %}
+{% block javascripts %}{{ parent() }} {{ encore_entry_script_tags('clientPricing') }}{% endblock %}
+
+{% block body %}
+    <div id="pricing"></div>
+{% endblock %}
