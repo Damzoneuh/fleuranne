@@ -45,11 +45,11 @@ export default class PricingTable extends Component{
                                           <div>
                                               {service.name}  {service.description ? active === service.id ?
                                               <div className="text-grey">
-                                                  <div>{service.description} <i className="fas fa-arrow-up fa-sm" onClick={() => this.handleToggle()}></i></div>
+                                                  <div>{service.description} <i className="fas fa-arrow-up fa-sm link" onClick={() => this.handleToggle()}></i></div>
 
                                               </div>
                                               :
-                                              <i className="fas fa-arrow-down fa-sm text-grey" onClick={() => this.handleToggle(service.id)}></i>
+                                              <i className="fas fa-arrow-down fa-sm text-grey link" onClick={() => this.handleToggle(service.id)}></i>
                                               :
                                               ''}
                                           </div>
