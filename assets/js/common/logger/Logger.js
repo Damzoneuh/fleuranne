@@ -3,10 +3,29 @@ import React, {Component} from 'react';
 export default class Logger extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            type: null,
+            message: null
+        }
+    }
+
+    componentDidMount(){
+        this.setState({
+            type: this.props.type,
+            message: this.props.message
+        });
+        setTimeout(() => {this.componentWillUnmount()}, 2000)
+    }
+
+    componentWillUnmount(){
+       this.setState({
+           type: null,
+           message: null
+       })
     }
 
     render() {
-        const {type, message} = this.props;
+        const {type, message} = this.state;
         if (type && message){
             return (
                 <div className={ "alert-" + type + " alert alert-dismissible fade show fixed-top w-75 mt-3 ml-2"} role="alert">
@@ -19,5 +38,6 @@ export default class Logger extends Component{
                 </div>
             )
         }
+        else { return (<div> </div>)}
     }
 }

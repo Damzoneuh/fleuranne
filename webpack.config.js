@@ -26,6 +26,8 @@ Encore
     .addEntry('nav', './assets/js/common/nav/Nav.js')
     .addEntry('global', './assets/sass/global.scss')
     .addEntry('footer', './assets/js/common/footer/Footer.js')
+    .addEntry('index', './assets/js/modules/index/Index.js')
+    .addEntry('pricing', './assets/js/modules/admin/Pricing.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
