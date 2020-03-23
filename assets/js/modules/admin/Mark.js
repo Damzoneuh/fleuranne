@@ -19,50 +19,13 @@ export default class Mark extends Component{
         this.handleCreate = this.handleCreate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.getAllCares = this.getAllCares.bind(this);
         this.hasToReload = this.hasToReload.bind(this);
         this.handleDeleteMark = this.handleDeleteMark.bind(this);
     }
 
-    componentDidMount(){
-        this.getAllCares();
-    }
 
-    componentDidUpdate({reload}){
-        if(reload){
-            this.getAllCares();
-        }
-    }
-
-    componentWillUnmount(){
-       this.hasToReload(false);
-    }
-
-
-    getAllCares(){
-        this.setState({
-            isLoaded: false
-        });
-        axios.get('/admin/api/mark')
-            .then(res => {
-                this.setState({
-                    cares: res.data,
-                    isLoaded: true
-                });
-                this.hasToReload(false);
-            })
-            .catch(e => {
-                this.setState({
-                    isLoaded: true,
-                    message: 'Une erreur est survenue lors de la recheche des soins',
-                    type: 'danger'
-                });
-                this.hasToReload(false);
-            })
-    }
-
-    hasToReload(bool){
-        this.props.hasToReload(bool);
+    hasToReload(){
+        this.props.hasToReload();
     }
 
     handleCreate(){
@@ -72,7 +35,7 @@ export default class Mark extends Component{
                 img: null,
                 name: null
             });
-            this.cancelCourse()
+            this.cancelCourse();
         }
         else {
             this.setState({
@@ -114,14 +77,14 @@ export default class Mark extends Component{
                     isLoaded: true
                 });
                 this.handleCreate();
-                this.hasToReload(true);
+                this.hasToReload();
             })
             .catch(e => {
                 this.setState({
                     isLoaded: true
                 });
                 this.handleCreate();
-                this.hasToReload(true);
+                this.hasToReload();
             })
     }
 
@@ -136,18 +99,19 @@ export default class Mark extends Component{
                     type: 'success',
                     isLoaded: true
                 });
-                this.hasToReload(true);
+                this.hasToReload();
             })
             .catch(e => {
                 this.setState({
                     isLoaded: true
                 });
-                this.hasToReload(true);
+                this.hasToReload();
             })
     }
 
     render() {
-        const {isLoaded, message, type, cares, create} = this.state;
+        const {message, type, create} = this.state;
+        const {isLoaded, cares} = this.props;
         if (!isLoaded){
             return (
                 <div className="bg-pink-inherit">

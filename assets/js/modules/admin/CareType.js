@@ -16,7 +16,6 @@ export default class CareType extends Component{
         };
 
         this.hasToReload = this.hasToReload.bind(this);
-        this.getAllCareType = this.getAllCareType.bind(this);
         this.cancelCourse = this.cancelCourse.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,33 +23,9 @@ export default class CareType extends Component{
         this.handleDeleteCare = this.handleDeleteCare.bind(this);
     }
 
-    componentDidMount(){
-        this.getAllCareType();
-    }
 
-    componentDidUpdate({reload}){
-        if(reload){
-            this.getAllCareType();
-        }
-    }
-
-    componentWillUnmount(){
-        this.hasToReload(false);
-    }
-
-    getAllCareType(){
-        axios.get('/api/care')
-            .then(res => {
-                this.setState({
-                    careTypes: res.data,
-                    isLoaded: true
-                });
-                this.hasToReload(false)
-            })
-    }
-
-    hasToReload(bool){
-        this.props.hasToReload(bool);
+    hasToReload(){
+        this.props.hasToReload();
     }
 
     handleCreate(){
@@ -87,7 +62,7 @@ export default class CareType extends Component{
                     name: null
                 });
                 this.cancelCourse();
-                this.hasToReload(true);
+                this.hasToReload();
                 this.handleCreate();
             })
             .catch(e => {
@@ -95,8 +70,8 @@ export default class CareType extends Component{
                     name: null
                 });
                 this.cancelCourse();
-                this.hasToReload(true);
-                this.handleCreate()
+                this.hasToReload();
+                this.handleCreate();
             })
     }
 
@@ -107,21 +82,20 @@ export default class CareType extends Component{
                     message: res.data.success,
                     type: 'success'
                 });
-                this.hasToReload(true);
-                this.getAllCareType();
+                this.hasToReload();
             })
             .catch(e => {
                 this.setState({
                     message: 'Une erreur est survenue lors de la suppression',
                     type: 'danger'
                 });
-                this.hasToReload(true);
-                this.getAllCareType();
+                this.hasToReload();
             })
     }
 
     render() {
-        const {careTypes, isLoaded, message, type, create} = this.state;
+        const {message, type, create} = this.state;
+        const {isLoaded, careTypes} = this.props;
         if (!isLoaded){
             return (
                 <div className="bg-grey-inherit">
