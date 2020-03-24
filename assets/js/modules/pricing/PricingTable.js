@@ -33,8 +33,8 @@ export default class PricingTable extends Component{
                             <tr>
                                 <th scope="col">Prestations</th>
                                 <th scope="col">Temps</th>
-                                <th scope="col">Homme</th>
                                 <th scope="col">Femme</th>
+                                <th scope="col">Homme</th>
                             </tr>
                             </thead>
                             <tbody>
