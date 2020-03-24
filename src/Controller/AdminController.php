@@ -39,7 +39,8 @@ class AdminController extends AbstractController
                 'label' => 'Titre'
             ])
             ->add('file', FileType::class, [
-                'label' => 'Image'
+                'label' => 'Image',
+                'required' => false
             ])
             ->add('text', TextareaType::class, [
                 'label' => 'Texte'
