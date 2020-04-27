@@ -133,7 +133,9 @@ class PricingController extends AbstractController
         $data = $this->serializer->decode($request->getContent(), 'json');
 
         $service = new Services();
+        /** @var Mark $mark */
         $mark = $em->getRepository(Mark::class)->find($data['mark']);
+        /** @var CareType $care */
         $care = $em->getRepository(CareType::class)->find($data['care']);
 
         $service->setName($data['name']);
