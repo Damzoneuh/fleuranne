@@ -9,6 +9,7 @@ export default class Nav extends Component{
 
     }
     render() {
+        let url = window.location.hostname;
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-pink-inherit nav-border-grey shadow">
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -23,6 +24,9 @@ export default class Nav extends Component{
                         </li>
                         <li className="nav-item">
                             <a className="nav-link h4 text-grey" href="/pricing">Prestations</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link h4 text-grey" href={'https://shop.' + url}>Shop</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link h4 text-grey" href="#contact">Contact</a>
